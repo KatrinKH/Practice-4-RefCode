@@ -2,18 +2,19 @@
 
 namespace App\Http\Controllers;
 
+use App\Services\IssService;
+
 class IssController extends Controller
 {
-    public function index()
+    public function index(IssService $service)
     {
-        $base = getenv('RUST_BASE') ?: 'http://rust_iss:3000';
+        $last  = $service->getLast();
+        $trend = $service->getTrend();
 
-        $last  = @file_get_contents($base.'/last');
-        $trend = @file_get_contents($base.'/iss/trend');
-
-        $lastJson  = $last  ? json_decode($last,  true) : [];
-        $trendJson = $trend ? json_decode($trend, true) : [];
-
-        return view('iss', ['last' => $lastJson, 'trend' => $trendJson, 'base' => $base]);
+        return view('iss', [
+            'last'  => $last,
+            'trend' => $trend,
+            'base'  => config('services.rust.url'),
+        ]);
     }
 }

@@ -1,18 +1,28 @@
 FROM php:8.3-fpm-alpine
 
-# пакеты и расширения
-RUN apk add --no-cache bash curl git unzip rsync postgresql-dev \
- && docker-php-ext-install pdo pdo_pgsql
+# Системные зависимости
+RUN apk add --no-cache \
+    bash \
+    curl \
+    git \
+    unzip \
+    rsync \
+    postgresql-dev
 
-# composer
-COPY --from=composer:2 /usr/bin/composer /usr/bin/composer
+# PHP расширения
+RUN docker-php-ext-install pdo pdo_pgsql
 
-# каталоги
-RUN mkdir -p /var/www/html /opt/laravel-patches
+# Composer (без composer image)
+RUN curl -sS https://getcomposer.org/installer | php -- \
+    --install-dir=/usr/local/bin \
+    --filename=composer
+
+# Рабочая директория
 WORKDIR /var/www/html
 
 # entrypoint
-COPY entrypoint.sh /usr/local/bin/php_entrypoint.sh
-RUN chmod +x /usr/local/bin/php_entrypoint.sh
+COPY entrypoint.sh /entrypoint.sh
+RUN chmod +x /entrypoint.sh
 
-CMD ["bash", "/usr/local/bin/php_entrypoint.sh"]
+ENTRYPOINT ["/entrypoint.sh"]
+CMD ["php-fpm"]
