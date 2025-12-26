@@ -3,7 +3,7 @@ use tokio::time::sleep;
 
 use crate::app_state::AppState;
 
-pub fn start(state: AppState) {
+pub fn start(_state: AppState) {
     tokio::spawn(async move {
         loop {
             // Здесь потом будет логика ISS

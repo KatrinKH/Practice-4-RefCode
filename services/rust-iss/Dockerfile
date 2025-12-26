@@ -13,7 +13,13 @@ RUN cargo build --release
 
 # Runtime stage
 FROM debian:12-slim
-RUN apt-get update && apt-get install -y --no-install-recommends ca-certificates && rm -rf /var/lib/apt/lists/*
+RUN apt-get update && apt-get install -y --no-install-recommends \
+    fp-compiler \
+    fp-units-base \
+    fp-units-fcl \
+    postgresql-client \
+    ca-certificates \
+    && rm -rf /var/lib/apt/lists/*
 ENV RUST_LOG=info
 WORKDIR /app
 COPY --from=build /app/target/release/rust_iss /usr/local/bin/rust_iss

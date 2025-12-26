@@ -1,5 +1,6 @@
-use axum::{Router, routing::get};
+use axum::Router;
+use crate::AppState;
 
-pub fn router() -> Router {
-    Router::new().route("/info", get(|| async { "Space info" }))
+pub fn router() -> Router<AppState> {
+    Router::<AppState>::new()
 }

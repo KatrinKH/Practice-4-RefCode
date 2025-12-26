@@ -31,6 +31,10 @@ services:
     build:
       context: ./services/rust-iss
     container_name: rust_iss
+    environment:
+      DATABASE_URL: postgres://monouser:monopass@db:5432/monolith
+      ISS_API_URL: http://api.open-notify.org/iss-now.json
+      ISS_API_KEY: dummy
     env_file:
       - .env
     depends_on:

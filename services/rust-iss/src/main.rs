@@ -48,7 +48,7 @@ async fn main() -> anyhow::Result<()> {
     services::scheduler::start(state.clone());
 
     // ---------- router ----------
-    let app = Router::new()
+    let app = Router::<AppState>::new()
         .route("/health", get(handlers::health::health))
         .nest("/iss", routes::iss::router())
         .nest("/osdr", routes::osdr::router())
