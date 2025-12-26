@@ -1,6 +1,7 @@
-use axum::Router;
-use crate::AppState;
+use axum::{Router, routing::get};
+use crate::{handlers, AppState};
 
 pub fn router() -> Router<AppState> {
-    Router::<AppState>::new()
+    Router::new()
+        .route("/", get(handlers::space::index))
 }

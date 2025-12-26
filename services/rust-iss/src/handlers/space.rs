@@ -1,6 +1,10 @@
-use axum::{Router, routing::get};
-use crate::AppState;
+use axum::{Json, extract::State};
+use crate::{AppState, error::ApiError};
 
-pub fn router() -> Router<AppState> {
-    Router::<AppState>::new()
+pub async fn index(
+    State(_state): State<AppState>,
+) -> Result<Json<serde_json::Value>, ApiError> {
+    Ok(Json(serde_json::json!({
+        "ok": true
+    })))
 }
