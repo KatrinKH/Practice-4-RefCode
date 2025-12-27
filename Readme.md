@@ -40,3 +40,10 @@ http://localhost:8080/dashboard
 ```bash
 docker compose down
 ```
+
+## Проверка ошибок
+```bash
+curl http://localhost:3000/iss
+curl http://localhost:3000/osdr
+curl -i http://localhost:3000/not-exists
+```
