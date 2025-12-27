@@ -18,3 +18,7 @@ Route::get("/api/astro/events", [\App\Http\Controllers\AstroController::class, "
 use App\Http\Controllers\AstroController;
 Route::get('/page/{slug}', [\App\Http\Controllers\CmsController::class, 'page']);
 Route::get('/page/{slug}', [\App\Http\Controllers\CmsController::class, 'page']);
+
+use App\Http\Controllers\IssController;
+
+Route::get('/iss', [IssController::class, 'index']);

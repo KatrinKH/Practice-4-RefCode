@@ -58,9 +58,12 @@ services:
         condition: service_started
     networks:
       - backend
+    ports:
+      - "8080:8000"
     volumes:
       - appdata:/var/www/html
       - ./services/php-web/laravel-patches:/opt/laravel-patches:ro
+
 
   # nginx:
   #   image: nginx:alpine

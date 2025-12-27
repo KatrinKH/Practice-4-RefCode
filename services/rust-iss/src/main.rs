@@ -43,8 +43,6 @@ async fn main() -> anyhow::Result<()> {
     };
 
     // ---------- background jobs ----------
-    // ❗ ВАЖНО: мы их выносим в отдельный модуль,
-    // но для преподавателя допустимо оставить запуск тут
     services::scheduler::start(state.clone());
 
     // ---------- router ----------
@@ -57,7 +55,7 @@ async fn main() -> anyhow::Result<()> {
 
     // ---------- server ----------
     let listener = tokio::net::TcpListener::bind(("0.0.0.0", 3000)).await?;
-    info!("🚀 rust_iss listening on 0.0.0.0:3000");
+    info!("rust_iss listening on 0.0.0.0:3000");
 
     axum::serve(listener, app.into_make_service()).await?;
     Ok(())

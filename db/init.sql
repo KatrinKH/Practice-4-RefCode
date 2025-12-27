@@ -15,12 +15,14 @@ CREATE TABLE IF NOT EXISTS telemetry_legacy (
     source_file TEXT NOT NULL
 );
 
-CREATE TABLE IF NOT EXISTS cms_pages (
-    id BIGSERIAL PRIMARY KEY,
+CREATE TABLE cms_blocks (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
     slug TEXT UNIQUE NOT NULL,
     title TEXT NOT NULL,
-    body TEXT NOT NULL
+    content TEXT NOT NULL,
+    is_active INTEGER NOT NULL DEFAULT 1
 );
+
 
 -- Seed with deliberately unsafe content for XSS practice
 INSERT INTO cms_pages(slug, title, body)
@@ -29,3 +31,18 @@ VALUES
 ('unsafe', 'Небезопасный пример', '<script>console.log("XSS training")
 </script><p>Если вы видите всплывашку значит защита не работает</p>')
 ON CONFLICT DO NOTHING;
+
+
+INSERT INTO cms_blocks (slug, title, content, is_active) VALUES
+(
+  'dashboard_experiment',
+  'Астрономические события',
+  '<h3>Астрономические события</h3><p>Данные загружены из SQLite</p>',
+  1
+),
+(
+  'astro',
+  'Astro',
+  '<h3>Astro</h3><p>Страница CMS на SQLite</p>',
+  1
+);
