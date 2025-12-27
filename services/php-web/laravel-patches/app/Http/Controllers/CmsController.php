@@ -7,7 +7,7 @@ class CmsController extends Controller {
   public function page(string $slug) {
 
     $row = DB::selectOne(
-      "SELECT title, body AS content FROM cms_pages WHERE slug = ?",
+      "SELECT title, content FROM cms_blocks WHERE slug = ? AND is_active = 1",
       [$slug]
     );
 

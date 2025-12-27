@@ -19,6 +19,16 @@ CREATE TABLE cms_blocks (
     id INTEGER PRIMARY KEY AUTOINCREMENT,
     slug TEXT UNIQUE NOT NULL,
     title TEXT NOT NULL,
+    body TEXT NOT NULL,
+    content TEXT NOT NULL,
+    is_active INTEGER NOT NULL DEFAULT 1
+);
+
+CREATE TABLE cms_pages (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    slug TEXT UNIQUE NOT NULL,
+    title TEXT NOT NULL,
+    body TEXT NOT NULL,
     content TEXT NOT NULL,
     is_active INTEGER NOT NULL DEFAULT 1
 );
